@@ -1,0 +1,27 @@
+{
+  "name": "milhas-api",
+  "version": "1.0.0",
+  "description": "API para gerenciamento de milhas e viagens",
+  "homepage": "https://github.com/ArielNunesS/desafio-dev-junior#readme",
+  "bugs": {
+    "url": "https://github.com/ArielNunesS/desafio-dev-junior/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArielNunesS/desafio-dev-junior.git"
+  },
+  "license": "ISC",
+  "author": "Ariel Nunes da Silva",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

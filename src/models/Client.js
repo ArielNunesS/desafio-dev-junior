@@ -1,0 +1,32 @@
+const tiposCartao = [ "Gold", "Platinum", "Black", "Infinite"];
+const validarEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+const clients = [];
+const nextId = 2;
+
+clients.push({
+    id: 1,
+    nome: "teste",
+    email: "teste@gmail.com",
+    cartao: "Gold",
+    saldo_milhas: 1500,
+    destino_desejado: "Paris",
+})
+
+export class Client {
+    constructor(id, nome, email, cartao, saldo_milhas, destino_desejado) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.cartao = cartao;
+        this.saldo_milhas = saldo_milhas;
+        this.destino_desejado = destino_desejado;
+    }
+
+    static getAll() {
+        return clients.map(client => client);
+    }
+}
