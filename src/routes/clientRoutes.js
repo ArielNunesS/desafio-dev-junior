@@ -5,5 +5,5 @@ import * as clientController from "../controllers/clientController.js";
 const router = Router()
 
 router.get("/", clientController.getAllClients);
-
+router.get("/:id", clientController.getClientById)
 export default router;

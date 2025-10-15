@@ -29,4 +29,8 @@ export class Client {
     static getAll() {
         return clients.map(client => client);
     }
+
+    static getById(id) {
+        return clients.find(c => c.id === parseInt(id));
+    }
 }
