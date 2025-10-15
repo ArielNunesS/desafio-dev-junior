@@ -134,9 +134,46 @@ const updateClient = (req, res) => {
     }
 }
 
+const deleteClient = (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id || isNaN(parseInt(id))) {
+            return res.status(400).json({
+                error: "ID inválido",
+                message: "O ID deve ser um número válido"
+            });
+        }
+
+        const clientId = parseInt(id);
+        const clientExists = Client.getById(clientId);
+
+        if (!clientExists) {
+            return res.status(404).json({
+                error: "Cliente não encontrado",
+                message: "Nenhum cliente com o ID inserido foi encontrado"
+            });
+        }
+
+        const clientRemoved = Client.delete(clientId);
+
+        return res.status(200).json({
+            message: "Cliente removido com sucesso",
+            cliente: clientRemoved
+        });
+
+    } catch(error) {
+        res.status(400).json({
+            error: "Erro ao remover cliente",
+            message: error.message
+        });
+    }
+}
+
 export {
     getAllClients,
     getClientById,
     createClient,
     updateClient,
+    deleteClient,
 };

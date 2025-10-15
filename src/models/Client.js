@@ -74,4 +74,15 @@ export class Client {
 
         return client;
     }
+
+    static delete(id) {
+        const index = clients.findIndex(client => client.id === id);
+        
+        if (index === -1) {
+            throw new Error("Cliente não encontrado");
+        }
+
+        const clientRemoved = clients.splice(index, 1)[0];
+        return clientRemoved;
+    }
 }
