@@ -5,16 +5,7 @@ const validarEmail = (email) => {
 }
 
 const clients = [];
-let nextId = 2;
-
-clients.push({
-    id: 1,
-    nome: "teste",
-    email: "teste@gmail.com",
-    cartao: "Gold",
-    saldo_milhas: 1500,
-    destino_desejado: "Paris",
-})
+let nextId = 1;
 
 export class Client {
     constructor(id, nome, email, cartao, saldo_milhas, destino_desejado) {
