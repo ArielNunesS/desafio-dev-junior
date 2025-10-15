@@ -56,4 +56,22 @@ export class Client {
         clients.push(newClient);
         return clients;
     }
+
+     static update(id, updateData) {
+        const index = clients.findIndex(client => client.id === parseInt(id));
+        
+        if (index === -1) {
+            throw new Error("Cliente não encontrado");
+        }
+
+        const client = clients[index];
+
+        if (updateData.nome !== undefined) client.nome = updateData.nome;
+        if (updateData.email !== undefined) client.email = updateData.email;
+        if (updateData.cartao !== undefined) client.cartao = updateData.cartao;
+        if (updateData.saldo_milhas !== undefined) client.saldo_milhas = updateData.saldo_milhas;
+        if (updateData.destino_desejado !== undefined) client.destino_desejado = updateData.destino_desejado;
+
+        return client;
+    }
 }

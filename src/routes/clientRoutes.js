@@ -5,6 +5,7 @@ import * as clientController from "../controllers/clientController.js";
 const router = Router()
 
 router.get("/", clientController.getAllClients);
-router.get("/:id", clientController.getClientById);
 router.post("/", clientController.createClient);
+router.get("/:id", clientController.getClientById);
+router.put("/:id", clientController.updateClient);
 export default router;

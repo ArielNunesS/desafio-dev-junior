@@ -18,7 +18,7 @@ const getAllClients = (req, res) => {
 
 const getClientById = (req, res) => {
     try {
-        const client = Client.getById(req.params.id);
+        const client = Client.getById(parseInt(req.params.id));
 
         if(!client) {
             return res.status(404).json({
@@ -77,14 +77,66 @@ const createClient = (req, res) => {
 
 const updateClient = (req, res) => {
     try {
+        const { id } = req.params;
+        const data = req.body;
+
+        if(!id || isNaN(parseInt(id))) {
+            return res.status(400).json({
+                error: "ID inválido",
+                message: "O ID deve ser um número válido"
+            });
+        }
+
+        const clientExists = Client.getById(parseInt(id));
+
+        if(!clientExists) {
+            return res.status(404).json({
+                error: "Cliente não encontrado",
+                message: "Nenhum cliente com o ID inserido foi encontrado"
+            });
+        }
+
+        const errors = validateData(data);
+        if(errors) {
+            return res.status(400).json(errors);
+        }
+
+        // if (data.email && data.email !== clientExists.email) {
+        //     const clientEmail = Client.getByEmail(data.email);
+        //         if (clientEmail && clientEmail.id !== parseInt(id)) {
+        //             return res.status(409).json({
+        //                 error: "Email já cadastrado",
+        //                 message: "Já existe outro cliente com este email"
+        //             });
+        //         }
+        //     }
+
+        const updateData = {};
+
+        if (data.nome !== undefined) updateData.nome = data.nome.trim();
+        if (data.email !== undefined) updateData.email = data.email.trim().toLowerCase();
+        if (data.cartao !== undefined) updateData.cartao = data.cartao;
+        if (data.saldo_milhas !== undefined) updateData.saldo_milhas = data.saldo_milhas;
+        if (data.destino_desejado !== undefined) updateData.destino_desejado = data.destino_desejado.trim();
+
+        const updatedClient = Client.update(id, updateData);
+
+        return res.status(200).json({
+            message: "Cliente atualizado com sucesso",
+            cliente: updatedClient
+        });
 
     } catch(error) {
-        
+        res.status(400).json({
+            error: "Erro ao atualizar cliente",
+            message: error.message
+        });
     }
 }
 
 export {
     getAllClients,
     getClientById,
-    createClient
+    createClient,
+    updateClient,
 };
