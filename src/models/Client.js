@@ -36,6 +36,14 @@ export class Client {
 
     static create(data) {
 
+         const emailExists = clients.some(client => 
+            client.email.toLowerCase() === data.email.toLowerCase()
+        );
+
+        if(emailExists) {
+            throw new Error("Já existe um cliente com este email");
+        }
+
         const newClient = new Client(
             nextId++,
             data.nome.trim(),
@@ -47,5 +55,5 @@ export class Client {
 
         clients.push(newClient);
         return clients;
-}
+    }
 }
