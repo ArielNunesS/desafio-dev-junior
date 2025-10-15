@@ -170,10 +170,65 @@ const deleteClient = (req, res) => {
     }
 }
 
+const addMiles = (req, res) => {
+    try {
+        const { id } = req.params;
+        const { quantidade } = req.body;
+
+        if (!id || isNaN(parseInt(id))) {
+            return res.status(400).json({
+                error: "ID inválido",
+                message: "O ID deve ser um número válido"
+            });
+        }
+
+        const clientId = parseInt(id);
+        const clientExists = Client.getById(clientId);
+
+        if (!clientExists) {
+            return res.status(404).json({
+                error: "Cliente não encontrado",
+                message: "Nenhum cliente com o ID inserido foi encontrado"
+            });
+        }
+
+        if (!quantidade || typeof quantidade !== 'number') {
+            return res.status(400).json({
+                error: "Quantidade inválida",
+                message: "A quantidade deve ser um número"
+            });
+        }
+
+        if (quantidade <= 0) {
+            return res.status(400).json({
+                error: "Quantidade inválida",
+                message: "A quantidade deve ser um número positivo"
+            });
+        }
+
+        const result = Client.addMiles(clientId, quantidade);
+
+        return res.status(200).json({
+            message: "Milhas adicionadas com sucesso",
+            quantidade_adicionada: quantidade,
+            saldo_anterior: result.saldo_anterior,
+            novo_saldo: result.novo_saldo,
+            cliente: result.cliente
+        });
+
+    } catch(error) {
+        res.status(400).json({
+            error: "Erro ao adicionar milhas",
+            message: error.message
+        });
+    }
+}
+
 export {
     getAllClients,
     getClientById,
     createClient,
     updateClient,
     deleteClient,
+    addMiles,
 };

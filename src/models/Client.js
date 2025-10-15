@@ -85,4 +85,22 @@ export class Client {
         const clientRemoved = clients.splice(index, 1)[0];
         return clientRemoved;
     }
+
+    static addMiles(id, quantidade) {
+        const client = this.getById(id);
+        
+        if (!client) {
+            throw new Error("Cliente não encontrado");
+        }
+
+        const previousBalance = client.saldo_milhas;
+        
+        client.saldo_milhas += quantidade;
+
+        return {
+            cliente: client,
+            saldo_anterior: previousBalance,
+            novo_saldo: client.saldo_milhas
+        };
+    }
 }

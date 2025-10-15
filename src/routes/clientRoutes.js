@@ -9,4 +9,5 @@ router.post("/", clientController.createClient);
 router.get("/:id", clientController.getClientById);
 router.put("/:id", clientController.updateClient);
 router.delete("/:id", clientController.deleteClient);
+router.post('/:id/adicionar-milhas', clientController.addMiles);
 export default router;
