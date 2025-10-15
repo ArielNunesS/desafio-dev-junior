@@ -5,7 +5,7 @@ const validarEmail = (email) => {
 }
 
 const clients = [];
-const nextId = 2;
+let nextId = 2;
 
 clients.push({
     id: 1,
@@ -33,4 +33,19 @@ export class Client {
     static getById(id) {
         return clients.find(c => c.id === parseInt(id));
     }
+
+    static create(data) {
+
+        const newClient = new Client(
+            nextId++,
+            data.nome.trim(),
+            data.email.trim().toLowerCase(),
+            data.cartao,
+            data.saldo_milhas || 0,
+            data.destino_desejado || ""
+        );
+
+        clients.push(newClient);
+        return clients;
+}
 }

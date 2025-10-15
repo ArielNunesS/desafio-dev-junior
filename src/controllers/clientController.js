@@ -5,12 +5,12 @@ const getAllClients = (req, res) => {
         const clients = Client.getAll()
         res.json({
             total: clients.length,
-            clientes: clients,
-        })
+            clientes: clients
+        });
     } catch(error) {
         res.status(500).json({
             error: "Erro ao listar clientes",
-            message: error.message,
+            message: error.message
         });
     }
 };
@@ -23,7 +23,7 @@ const getClientById = (req, res) => {
             return res.status(404).json({
                 error: "Cliente não encontrado",
                 message: "Não foi encontrado nenhum cliente com o ID inserido"
-            })
+            });
         }
 
         res.json(client);
@@ -31,11 +31,28 @@ const getClientById = (req, res) => {
         res.status(500).json({
             error: "Erro ao buscar cliente",
             message: error.message
-        })
+        });
     }
-}
+};
+
+const createClient = (req, res) => {
+    try {
+        const client = Client.create(req.body);
+
+        res.status(201).json({
+            message: "Cliente criado com sucesso",
+            cliente: client
+        });
+    } catch(error) {
+        res.status(400).json({
+            error: "Erro ao criar cliente",
+            message: error.message
+        });
+    }
+};
 
 export {
     getAllClients,
-    getClientById
+    getClientById,
+    createClient
 };
